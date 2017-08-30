@@ -31,19 +31,19 @@ namespace LoginForm.Services
         public List<Worker> GetWorkers()
         {
             
-            return IMEDB.Workers.ToList();
+            return IMEDB.Workers.AsNoTracking().ToList();
         }
         public Worker GetWorkersbyID(int WorkerID)
         {
 
-            return IMEDB.Workers.Where(w=>w.WorkerID==WorkerID).FirstOrDefault();
+            return IMEDB.Workers.AsNoTracking().Where(w=>w.WorkerID==WorkerID).FirstOrDefault();
         }
         public bool WarnDuplicateRecord(Worker CheckWorker)
         {
             //Mail üzerinden Unique Kontrolü
-            var isDuplidate = IMEDB.Workers.Any(w=>w.EMail==CheckWorker.EMail);
+            var isDuplidate = IMEDB.Workers.AsNoTracking().Any(w=>w.EMail==CheckWorker.EMail);
             //isDuplicate Dolu ise Kayıt Zaten Mevcut.
-            if (isDuplidate!=null)
+            if (isDuplidate==null)
             {
                 return true;
             }

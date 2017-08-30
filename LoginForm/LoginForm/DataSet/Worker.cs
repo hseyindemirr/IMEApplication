@@ -17,8 +17,8 @@ namespace LoginForm.DataSet
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Worker()
         {
-            this.AuthorizationValues = new HashSet<AuthorizationValue>();
             this.Customers = new HashSet<Customer>();
+            this.AuthorizationValues = new HashSet<AuthorizationValue>();
         }
     
         public int WorkerID { get; set; }
@@ -28,8 +28,8 @@ namespace LoginForm.DataSet
         public string Phone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AuthorizationValue> AuthorizationValues { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AuthorizationValue> AuthorizationValues { get; set; }
     }
 }

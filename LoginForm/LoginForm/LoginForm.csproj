@@ -183,10 +183,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DataSet\IME.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IME.Context.cs</LastGenOutput>
       <DependentUpon>IME.edmx</DependentUpon>
+      <LastGenOutput>IME.Context.cs</LastGenOutput>
     </Content>
     <Content Include="DataSet\IME.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -194,9 +197,5 @@
       <LastGenOutput>IME.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

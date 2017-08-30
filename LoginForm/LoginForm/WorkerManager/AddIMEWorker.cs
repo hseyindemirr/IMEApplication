@@ -36,7 +36,7 @@ namespace LoginForm.WorkerManager
                     {
 
                         Worker2Add.FirstName = txtFirstName.Text;
-                        Worker2Add.LastName = txtFirstName.Text;
+                        Worker2Add.LastName = txtLastName.Text;
 
                         Worker2Add.Phone = txtPhone.Text;
                         bool isDuplidateWorker = WorkerService.WarnDuplicateRecord(Worker2Add);

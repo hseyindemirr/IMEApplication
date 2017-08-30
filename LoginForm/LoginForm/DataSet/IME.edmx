@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="IMEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="IMEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AuthorizationValue">
           <Key>
             <PropertyRef Name="AuthorizationID" />
@@ -184,7 +184,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserAutho__Autho__2C3393D0">
+        <Association Name="FK__UserAutho__Autho__1332DBDC">
           <End Role="AuthorizationValue" Type="Self.AuthorizationValue" Multiplicity="1" />
           <End Role="UserAuthorization" Type="Self.UserAuthorization" Multiplicity="*" />
           <ReferentialConstraint>
@@ -196,7 +196,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserAutho__Worke__2B3F6F97">
+        <Association Name="FK__UserAutho__Worke__123EB7A3">
           <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
           <End Role="UserAuthorization" Type="Self.UserAuthorization" Multiplicity="*" />
           <ReferentialConstraint>
@@ -245,16 +245,17 @@
             <End Role="CustomerTitle" EntitySet="CustomerTitle" />
             <End Role="CustomerWorker" EntitySet="CustomerWorker" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserAutho__Autho__2C3393D0" Association="Self.FK__UserAutho__Autho__2C3393D0">
+          <AssociationSet Name="FK__UserAutho__Autho__1332DBDC" Association="Self.FK__UserAutho__Autho__1332DBDC">
             <End Role="AuthorizationValue" EntitySet="AuthorizationValue" />
             <End Role="UserAuthorization" EntitySet="UserAuthorization" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserAutho__Worke__2B3F6F97" Association="Self.FK__UserAutho__Worke__2B3F6F97">
+          <AssociationSet Name="FK__UserAutho__Worke__123EB7A3" Association="Self.FK__UserAutho__Worke__123EB7A3">
             <End Role="Worker" EntitySet="Worker" />
             <End Role="UserAuthorization" EntitySet="UserAuthorization" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IMEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -265,6 +266,89 @@
           <Property Name="AuthorizationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AuthorizationValue1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Workers" Relationship="Self.UserAuthorization" FromRole="AuthorizationValue" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="c_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="capital" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="town" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="postcode" Type="Int32" />
+          <Property Name="telephone" Type="Int32" />
+          <Property Name="fax" Type="Int32" />
+          <Property Name="webadress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="payment_termID" Type="Int32" />
+          <Property Name="representaryID" Type="Int32" />
+          <NavigationProperty Name="PaymentTerm" Relationship="Self.FK__Customer__paymen__74AE54BC" FromRole="Customer" ToRole="PaymentTerm" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK__Customer__repres__75A278F5" FromRole="Customer" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="CustomerAddress">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="w_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pssword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phonenumber" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CustomerCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="categoryname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CustomerSubCategories" Relationship="Self.FK__CustomerS__categ__656C112C" FromRole="CustomerCategory" ToRole="CustomerSubCategory" />
+        </EntityType>
+        <EntityType Name="CustomerDepartment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="departmentname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CustomerTitles" Relationship="Self.FK__CustomerT__depar__6A30C649" FromRole="CustomerDepartment" ToRole="CustomerTitle" />
+          <NavigationProperty Name="CustomerWorkers" Relationship="Self.FK__CustomerW__depar__70DDC3D8" FromRole="CustomerDepartment" ToRole="CustomerWorker" />
+        </EntityType>
+        <EntityType Name="CustomerSubCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="subcategoryname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="categoryID" Type="Int32" />
+          <NavigationProperty Name="CustomerCategory" Relationship="Self.FK__CustomerS__categ__656C112C" FromRole="CustomerSubCategory" ToRole="CustomerCategory" />
+        </EntityType>
+        <EntityType Name="CustomerTitle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="titlename" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="departmnetID" Type="Int32" />
+          <NavigationProperty Name="CustomerDepartment" Relationship="Self.FK__CustomerT__depar__6A30C649" FromRole="CustomerTitle" ToRole="CustomerDepartment" />
+          <NavigationProperty Name="CustomerWorkers" Relationship="Self.FK__CustomerW__title__71D1E811" FromRole="CustomerTitle" ToRole="CustomerWorker" />
+        </EntityType>
+        <EntityType Name="CustomerWorker">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="cw_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="departmnetID" Type="Int32" />
+          <Property Name="titleID" Type="Int32" />
+          <NavigationProperty Name="CustomerDepartment" Relationship="Self.FK__CustomerW__depar__70DDC3D8" FromRole="CustomerWorker" ToRole="CustomerDepartment" />
+          <NavigationProperty Name="CustomerTitle" Relationship="Self.FK__CustomerW__title__71D1E811" FromRole="CustomerWorker" ToRole="CustomerTitle" />
+        </EntityType>
+        <EntityType Name="PaymentTerm">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="term_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK__Customer__paymen__74AE54BC" FromRole="PaymentTerm" ToRole="Customer" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -285,140 +369,12 @@
           <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="EMail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK__Customer__repres__75A278F5" FromRole="Worker" ToRole="Customer" />
           <NavigationProperty Name="AuthorizationValues" Relationship="Self.UserAuthorization" FromRole="Worker" ToRole="AuthorizationValue" />
-          <NavigationProperty Name="Customers" Relationship="IMEModel.FK__Customer__repres__75A278F5" FromRole="Worker" ToRole="Customer" />
-        </EntityType>
-        <Association Name="UserAuthorization">
-          <End Role="AuthorizationValue" Type="Self.AuthorizationValue" Multiplicity="*" />
-          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="IMEEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AuthorizationValues" EntityType="Self.AuthorizationValue" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Workers" EntityType="Self.Worker" />
-          <AssociationSet Name="UserAuthorization" Association="Self.UserAuthorization">
-            <End Role="AuthorizationValue" EntitySet="AuthorizationValues" />
-            <End Role="Worker" EntitySet="Workers" />
-          </AssociationSet>
-          <EntitySet Name="Customers" EntityType="IMEModel.Customer" />
-          <EntitySet Name="CustomerAddresses" EntityType="IMEModel.CustomerAddress" />
-          <EntitySet Name="CustomerCategories" EntityType="IMEModel.CustomerCategory" />
-          <EntitySet Name="CustomerDepartments" EntityType="IMEModel.CustomerDepartment" />
-          <EntitySet Name="CustomerSubCategories" EntityType="IMEModel.CustomerSubCategory" />
-          <EntitySet Name="CustomerTitles" EntityType="IMEModel.CustomerTitle" />
-          <EntitySet Name="CustomerWorkers" EntityType="IMEModel.CustomerWorker" />
-          <EntitySet Name="PaymentTerms" EntityType="IMEModel.PaymentTerm" />
-          <AssociationSet Name="FK__Customer__paymen__74AE54BC" Association="IMEModel.FK__Customer__paymen__74AE54BC">
-            <End Role="PaymentTerm" EntitySet="PaymentTerms" />
-            <End Role="Customer" EntitySet="Customers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Customer__repres__75A278F5" Association="IMEModel.FK__Customer__repres__75A278F5">
-            <End Role="Worker" EntitySet="Workers" />
-            <End Role="Customer" EntitySet="Customers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CustomerS__categ__656C112C" Association="IMEModel.FK__CustomerS__categ__656C112C">
-            <End Role="CustomerCategory" EntitySet="CustomerCategories" />
-            <End Role="CustomerSubCategory" EntitySet="CustomerSubCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CustomerT__depar__6A30C649" Association="IMEModel.FK__CustomerT__depar__6A30C649">
-            <End Role="CustomerDepartment" EntitySet="CustomerDepartments" />
-            <End Role="CustomerTitle" EntitySet="CustomerTitles" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CustomerW__depar__70DDC3D8" Association="IMEModel.FK__CustomerW__depar__70DDC3D8">
-            <End Role="CustomerDepartment" EntitySet="CustomerDepartments" />
-            <End Role="CustomerWorker" EntitySet="CustomerWorkers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CustomerW__title__71D1E811" Association="IMEModel.FK__CustomerW__title__71D1E811">
-            <End Role="CustomerTitle" EntitySet="CustomerTitles" />
-            <End Role="CustomerWorker" EntitySet="CustomerWorkers" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="c_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="capital" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="town" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="postcode" Type="Int32" />
-          <Property Name="telephone" Type="Int32" />
-          <Property Name="fax" Type="Int32" />
-          <Property Name="webadress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="payment_termID" Type="Int32" />
-          <Property Name="representaryID" Type="Int32" />
-          <NavigationProperty Name="PaymentTerm" Relationship="IMEModel.FK__Customer__paymen__74AE54BC" FromRole="Customer" ToRole="PaymentTerm" />
-          <NavigationProperty Name="Worker" Relationship="IMEModel.FK__Customer__repres__75A278F5" FromRole="Customer" ToRole="Worker" />
-        </EntityType>
-        <EntityType Name="CustomerAddress">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="w_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pssword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="phonenumber" Type="Int32" />
-        </EntityType>
-        <EntityType Name="CustomerCategory">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="categoryname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CustomerSubCategories" Relationship="IMEModel.FK__CustomerS__categ__656C112C" FromRole="CustomerCategory" ToRole="CustomerSubCategory" />
-        </EntityType>
-        <EntityType Name="CustomerDepartment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="departmentname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CustomerTitles" Relationship="IMEModel.FK__CustomerT__depar__6A30C649" FromRole="CustomerDepartment" ToRole="CustomerTitle" />
-          <NavigationProperty Name="CustomerWorkers" Relationship="IMEModel.FK__CustomerW__depar__70DDC3D8" FromRole="CustomerDepartment" ToRole="CustomerWorker" />
-        </EntityType>
-        <EntityType Name="CustomerSubCategory">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="subcategoryname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="categoryID" Type="Int32" />
-          <NavigationProperty Name="CustomerCategory" Relationship="IMEModel.FK__CustomerS__categ__656C112C" FromRole="CustomerSubCategory" ToRole="CustomerCategory" />
-        </EntityType>
-        <EntityType Name="CustomerTitle">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="titlename" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="departmnetID" Type="Int32" />
-          <NavigationProperty Name="CustomerDepartment" Relationship="IMEModel.FK__CustomerT__depar__6A30C649" FromRole="CustomerTitle" ToRole="CustomerDepartment" />
-          <NavigationProperty Name="CustomerWorkers" Relationship="IMEModel.FK__CustomerW__title__71D1E811" FromRole="CustomerTitle" ToRole="CustomerWorker" />
-        </EntityType>
-        <EntityType Name="CustomerWorker">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="cw_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="departmnetID" Type="Int32" />
-          <Property Name="titleID" Type="Int32" />
-          <NavigationProperty Name="CustomerDepartment" Relationship="IMEModel.FK__CustomerW__depar__70DDC3D8" FromRole="CustomerWorker" ToRole="CustomerDepartment" />
-          <NavigationProperty Name="CustomerTitle" Relationship="IMEModel.FK__CustomerW__title__71D1E811" FromRole="CustomerWorker" ToRole="CustomerTitle" />
-        </EntityType>
-        <EntityType Name="PaymentTerm">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="term_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customers" Relationship="IMEModel.FK__Customer__paymen__74AE54BC" FromRole="PaymentTerm" ToRole="Customer" />
         </EntityType>
         <Association Name="FK__Customer__paymen__74AE54BC">
-          <End Type="IMEModel.PaymentTerm" Role="PaymentTerm" Multiplicity="0..1" />
-          <End Type="IMEModel.Customer" Role="Customer" Multiplicity="*" />
+          <End Role="PaymentTerm" Type="Self.PaymentTerm" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentTerm">
               <PropertyRef Name="ID" />
@@ -429,8 +385,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Customer__repres__75A278F5">
-          <End Type="IMEModel.Worker" Role="Worker" Multiplicity="0..1" />
-          <End Type="IMEModel.Customer" Role="Customer" Multiplicity="*" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Worker">
               <PropertyRef Name="WorkerID" />
@@ -441,8 +397,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CustomerS__categ__656C112C">
-          <End Type="IMEModel.CustomerCategory" Role="CustomerCategory" Multiplicity="0..1" />
-          <End Type="IMEModel.CustomerSubCategory" Role="CustomerSubCategory" Multiplicity="*" />
+          <End Role="CustomerCategory" Type="Self.CustomerCategory" Multiplicity="0..1" />
+          <End Role="CustomerSubCategory" Type="Self.CustomerSubCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CustomerCategory">
               <PropertyRef Name="ID" />
@@ -453,8 +409,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CustomerT__depar__6A30C649">
-          <End Type="IMEModel.CustomerDepartment" Role="CustomerDepartment" Multiplicity="0..1" />
-          <End Type="IMEModel.CustomerTitle" Role="CustomerTitle" Multiplicity="*" />
+          <End Role="CustomerDepartment" Type="Self.CustomerDepartment" Multiplicity="0..1" />
+          <End Role="CustomerTitle" Type="Self.CustomerTitle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CustomerDepartment">
               <PropertyRef Name="ID" />
@@ -465,8 +421,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CustomerW__depar__70DDC3D8">
-          <End Type="IMEModel.CustomerDepartment" Role="CustomerDepartment" Multiplicity="0..1" />
-          <End Type="IMEModel.CustomerWorker" Role="CustomerWorker" Multiplicity="*" />
+          <End Role="CustomerDepartment" Type="Self.CustomerDepartment" Multiplicity="0..1" />
+          <End Role="CustomerWorker" Type="Self.CustomerWorker" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CustomerDepartment">
               <PropertyRef Name="ID" />
@@ -477,8 +433,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CustomerW__title__71D1E811">
-          <End Type="IMEModel.CustomerTitle" Role="CustomerTitle" Multiplicity="0..1" />
-          <End Type="IMEModel.CustomerWorker" Role="CustomerWorker" Multiplicity="*" />
+          <End Role="CustomerTitle" Type="Self.CustomerTitle" Multiplicity="0..1" />
+          <End Role="CustomerWorker" Type="Self.CustomerWorker" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CustomerTitle">
               <PropertyRef Name="ID" />
@@ -488,6 +444,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="UserAuthorization">
+          <End Role="AuthorizationValue" Type="Self.AuthorizationValue" Multiplicity="*" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="IMEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AuthorizationValues" EntityType="Self.AuthorizationValue" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="CustomerAddresses" EntityType="Self.CustomerAddress" />
+          <EntitySet Name="CustomerCategories" EntityType="Self.CustomerCategory" />
+          <EntitySet Name="CustomerDepartments" EntityType="Self.CustomerDepartment" />
+          <EntitySet Name="CustomerSubCategories" EntityType="Self.CustomerSubCategory" />
+          <EntitySet Name="CustomerTitles" EntityType="Self.CustomerTitle" />
+          <EntitySet Name="CustomerWorkers" EntityType="Self.CustomerWorker" />
+          <EntitySet Name="PaymentTerms" EntityType="Self.PaymentTerm" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Workers" EntityType="Self.Worker" />
+          <AssociationSet Name="FK__Customer__paymen__74AE54BC" Association="Self.FK__Customer__paymen__74AE54BC">
+            <End Role="PaymentTerm" EntitySet="PaymentTerms" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Customer__repres__75A278F5" Association="Self.FK__Customer__repres__75A278F5">
+            <End Role="Worker" EntitySet="Workers" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CustomerS__categ__656C112C" Association="Self.FK__CustomerS__categ__656C112C">
+            <End Role="CustomerCategory" EntitySet="CustomerCategories" />
+            <End Role="CustomerSubCategory" EntitySet="CustomerSubCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CustomerT__depar__6A30C649" Association="Self.FK__CustomerT__depar__6A30C649">
+            <End Role="CustomerDepartment" EntitySet="CustomerDepartments" />
+            <End Role="CustomerTitle" EntitySet="CustomerTitles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CustomerW__depar__70DDC3D8" Association="Self.FK__CustomerW__depar__70DDC3D8">
+            <End Role="CustomerDepartment" EntitySet="CustomerDepartments" />
+            <End Role="CustomerWorker" EntitySet="CustomerWorkers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CustomerW__title__71D1E811" Association="Self.FK__CustomerW__title__71D1E811">
+            <End Role="CustomerTitle" EntitySet="CustomerTitles" />
+            <End Role="CustomerWorker" EntitySet="CustomerWorkers" />
+          </AssociationSet>
+          <AssociationSet Name="UserAuthorization" Association="Self.UserAuthorization">
+            <End Role="AuthorizationValue" EntitySet="AuthorizationValues" />
+            <End Role="Worker" EntitySet="Workers" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -499,6 +500,86 @@
               <MappingFragment StoreEntitySet="AuthorizationValue">
                 <ScalarProperty Name="AuthorizationID" ColumnName="AuthorizationID" />
                 <ScalarProperty Name="AuthorizationValue1" ColumnName="AuthorizationValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="IMEModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="c_name" ColumnName="c_name" />
+                <ScalarProperty Name="capital" ColumnName="capital" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="town" ColumnName="town" />
+                <ScalarProperty Name="postcode" ColumnName="postcode" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="webadress" ColumnName="webadress" />
+                <ScalarProperty Name="payment_termID" ColumnName="payment_termID" />
+                <ScalarProperty Name="representaryID" ColumnName="representaryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerAddresses">
+            <EntityTypeMapping TypeName="IMEModel.CustomerAddress">
+              <MappingFragment StoreEntitySet="CustomerAddress">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="w_name" ColumnName="w_name" />
+                <ScalarProperty Name="pssword" ColumnName="pssword" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerCategories">
+            <EntityTypeMapping TypeName="IMEModel.CustomerCategory">
+              <MappingFragment StoreEntitySet="CustomerCategory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="categoryname" ColumnName="categoryname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerDepartments">
+            <EntityTypeMapping TypeName="IMEModel.CustomerDepartment">
+              <MappingFragment StoreEntitySet="CustomerDepartment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="departmentname" ColumnName="departmentname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerSubCategories">
+            <EntityTypeMapping TypeName="IMEModel.CustomerSubCategory">
+              <MappingFragment StoreEntitySet="CustomerSubCategory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="subcategoryname" ColumnName="subcategoryname" />
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerTitles">
+            <EntityTypeMapping TypeName="IMEModel.CustomerTitle">
+              <MappingFragment StoreEntitySet="CustomerTitle">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="titlename" ColumnName="titlename" />
+                <ScalarProperty Name="departmnetID" ColumnName="departmnetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerWorkers">
+            <EntityTypeMapping TypeName="IMEModel.CustomerWorker">
+              <MappingFragment StoreEntitySet="CustomerWorker">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="cw_name" ColumnName="cw_name" />
+                <ScalarProperty Name="departmnetID" ColumnName="departmnetID" />
+                <ScalarProperty Name="titleID" ColumnName="titleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentTerms">
+            <EntityTypeMapping TypeName="IMEModel.PaymentTerm">
+              <MappingFragment StoreEntitySet="PaymentTerm">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="term_name" ColumnName="term_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -532,86 +613,6 @@
               <ScalarProperty Name="WorkerID" ColumnName="WorkerID" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="IMEModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="representaryID" ColumnName="representaryID" />
-                <ScalarProperty Name="payment_termID" ColumnName="payment_termID" />
-                <ScalarProperty Name="webadress" ColumnName="webadress" />
-                <ScalarProperty Name="fax" ColumnName="fax" />
-                <ScalarProperty Name="telephone" ColumnName="telephone" />
-                <ScalarProperty Name="postcode" ColumnName="postcode" />
-                <ScalarProperty Name="town" ColumnName="town" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="capital" ColumnName="capital" />
-                <ScalarProperty Name="c_name" ColumnName="c_name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerAddresses">
-            <EntityTypeMapping TypeName="IMEModel.CustomerAddress">
-              <MappingFragment StoreEntitySet="CustomerAddress">
-                <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
-                <ScalarProperty Name="mail" ColumnName="mail" />
-                <ScalarProperty Name="pssword" ColumnName="pssword" />
-                <ScalarProperty Name="w_name" ColumnName="w_name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerCategories">
-            <EntityTypeMapping TypeName="IMEModel.CustomerCategory">
-              <MappingFragment StoreEntitySet="CustomerCategory">
-                <ScalarProperty Name="categoryname" ColumnName="categoryname" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerDepartments">
-            <EntityTypeMapping TypeName="IMEModel.CustomerDepartment">
-              <MappingFragment StoreEntitySet="CustomerDepartment">
-                <ScalarProperty Name="departmentname" ColumnName="departmentname" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerSubCategories">
-            <EntityTypeMapping TypeName="IMEModel.CustomerSubCategory">
-              <MappingFragment StoreEntitySet="CustomerSubCategory">
-                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
-                <ScalarProperty Name="subcategoryname" ColumnName="subcategoryname" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerTitles">
-            <EntityTypeMapping TypeName="IMEModel.CustomerTitle">
-              <MappingFragment StoreEntitySet="CustomerTitle">
-                <ScalarProperty Name="departmnetID" ColumnName="departmnetID" />
-                <ScalarProperty Name="titlename" ColumnName="titlename" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerWorkers">
-            <EntityTypeMapping TypeName="IMEModel.CustomerWorker">
-              <MappingFragment StoreEntitySet="CustomerWorker">
-                <ScalarProperty Name="titleID" ColumnName="titleID" />
-                <ScalarProperty Name="departmnetID" ColumnName="departmnetID" />
-                <ScalarProperty Name="cw_name" ColumnName="cw_name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PaymentTerms">
-            <EntityTypeMapping TypeName="IMEModel.PaymentTerm">
-              <MappingFragment StoreEntitySet="PaymentTerm">
-                <ScalarProperty Name="term_name" ColumnName="term_name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
