@@ -28,7 +28,7 @@ namespace LoginForm
         {
 
             //Yetkli Kontrolü
-            bool Login = canLog(LoggedPerson);
+            bool Login = canLog(LoggedPerson, "Quatotatin Editor");
            
             if (Login)
             {
@@ -49,13 +49,13 @@ namespace LoginForm
             LoggedPerson = IME.Workers.Where(wID => wID.WorkerID == PersonID).FirstOrDefault();
         }
 
-        public bool canLog(Worker Person)
+        public bool canLog(Worker Person,string AuthorizationValue)
         {
             //Sonuç Çeken Sorgu
             var result = (from m in IME.AuthorizationValues
                           from b in m.Workers
                           where b.WorkerID == Person.WorkerID
-                          where m.AuthorizationID == 9
+                          where m.AuthorizationValue1== AuthorizationValue
                           select new
                           {
                               m.AuthorizationValue1
@@ -71,6 +71,49 @@ namespace LoginForm
             {
                 return false;
 
+            }
+        }
+
+        private void lblQuotation_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSalesOrder_Click(object sender, EventArgs e)
+        {
+
+            //Yetkli Kontrolü
+            bool Login = canLog(LoggedPerson, "Sales Order Editor");
+
+            if (Login)
+            {
+                LoginForm.Quotation.Quotation quotation = new Quotation.Quotation();
+                quotation.Show();
+            }
+            else
+            {
+                MessageBox.Show("siktir git");
+            }
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblWorkerManager_Click(object sender, EventArgs e)
+        {
+            //Yetkli Kontrolü
+            bool Login = canLog(LoggedPerson, "Worker Manager");
+
+            if (Login)
+            {
+                LoginForm.WorkerManager.AddIMEWorker WorkerPage = new WorkerManager.AddIMEWorker();
+                WorkerPage.Show();
+            }
+            else
+            {
+                MessageBox.Show("siktir git");
             }
         }
     }

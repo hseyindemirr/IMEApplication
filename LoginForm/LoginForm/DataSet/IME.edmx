@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="IMEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="IMEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AuthorizationValue">
           <Key>
             <PropertyRef Name="AuthorizationID" />
@@ -111,6 +111,7 @@
           <Property Name="FirstName" Type="varchar" MaxLength="255" />
           <Property Name="EMail" Type="varchar" MaxLength="255" />
           <Property Name="Phone" Type="varchar" MaxLength="255" />
+          <Property Name="isActive" Type="nvarchar" MaxLength="2" />
         </EntityType>
         <Association Name="FK__Customer__paymen__74AE54BC">
           <End Role="PaymentTerm" Type="Self.PaymentTerm" Multiplicity="0..1" />
@@ -254,8 +255,7 @@
             <End Role="UserAuthorization" EntitySet="UserAuthorization" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IMEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -371,6 +371,7 @@
           <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Customers" Relationship="Self.FK__Customer__repres__75A278F5" FromRole="Worker" ToRole="Customer" />
           <NavigationProperty Name="AuthorizationValues" Relationship="Self.UserAuthorization" FromRole="Worker" ToRole="AuthorizationValue" />
+          <Property Name="isActive" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Customer__paymen__74AE54BC">
           <End Role="PaymentTerm" Type="Self.PaymentTerm" Multiplicity="0..1" />
@@ -597,6 +598,7 @@
           <EntitySetMapping Name="Workers">
             <EntityTypeMapping TypeName="IMEModel.Worker">
               <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="WorkerID" ColumnName="WorkerID" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />

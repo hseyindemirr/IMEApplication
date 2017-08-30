@@ -17,8 +17,8 @@ namespace LoginForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AddIMEWorker());
-            Application.Run(new AuthorizationManagement());
+            Application.Run(new Form1());
+           //Application.Run(new AuthorizationManagement());
         }
     }
 }

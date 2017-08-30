@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace LoginForm.Services
 {
-    
+
     class WorkerService
     {
         IMEEntities IMEDB = new IMEEntities();
@@ -31,20 +31,20 @@ namespace LoginForm.Services
         }
         public List<Worker> GetWorkers()
         {
-            
-            return IMEDB.Workers.AsNoTracking().ToList();
+
+            return IMEDB.Workers.AsNoTracking().Where(w=>w.isActive == "A").ToList();
         }
         public Worker GetWorkersbyID(int WorkerID)
         {
 
-            return IMEDB.Workers.AsNoTracking().Where(w=>w.WorkerID==WorkerID).FirstOrDefault();
+            return IMEDB.Workers.AsNoTracking().Where(w => w.WorkerID == WorkerID).FirstOrDefault();
         }
         public bool WarnDuplicateRecord(Worker CheckWorker)
         {
             //Mail üzerinden Unique Kontrolü
-            var isDuplidate = IMEDB.Workers.AsNoTracking().Any(w=>w.EMail==CheckWorker.EMail);
+            var isDuplidate = IMEDB.Workers.AsNoTracking().Any(w => w.EMail == CheckWorker.EMail);
             //isDuplicate Dolu ise Kayıt Zaten Mevcut.
-            if (isDuplidate==null)
+            if (isDuplidate == null)
             {
                 return true;
             }
@@ -53,6 +53,26 @@ namespace LoginForm.Services
                 return false;
             }
         }
-
+        public void UpdateWorker(Worker UpdatedWorker)
+        {
+            using (SqlConnection connection = new SqlConnection("data source=.;initial catalog=IME;integrated security=True;multipleactiveresultsets=True"))
+            {
+                string kayit = "Update dbo.Worker set LastName=@lname,FirstName=@fname,EMail=@mail,Phone=@tphone,isActive=@status where WorkerID=@UpdateID";
+                connection.Open();
+                SqlCommand komut = new SqlCommand(kayit, connection);
+                //Sorgumuzu ve baglantimizi parametre olarak alan bir SqlCommand nesnesi oluşturuyoruz.
+                komut.Parameters.AddWithValue("@lname", UpdatedWorker.LastName);
+                komut.Parameters.AddWithValue("@fname", UpdatedWorker.FirstName);
+                komut.Parameters.AddWithValue("@mail", UpdatedWorker.EMail);
+                komut.Parameters.AddWithValue("@tphone", UpdatedWorker.Phone);
+                komut.Parameters.AddWithValue("@status", UpdatedWorker.isActive);
+                komut.Parameters.AddWithValue("@UpdateID", UpdatedWorker.WorkerID);
+                //Parametrelerimize Form üzerinde ki kontrollerden girilen verileri aktarıyoruz.
+                komut.ExecuteNonQuery();
+                //Veritabanında değişiklik yapacak komut işlemi bu satırda gerçekleşiyor.
+                connection.Close();
+            }
+        }
     }
 }
+

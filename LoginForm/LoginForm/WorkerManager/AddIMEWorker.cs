@@ -139,14 +139,58 @@ namespace LoginForm.WorkerManager
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-          
+            Worker Updated = new Worker();
+            Updated = lstWorker.SelectedItem as Worker;
+            Updated.FirstName = txtFirstName.Text;
+            Updated.LastName = txtLastName.Text;
+            Updated.EMail = txtEmail.Text;
+            Updated.Phone = txtPhone.Text;
+            Updated.isActive = "A";
+            try
+            {
+                WorkerService.UpdateWorker(Updated);
+                MessageBox.Show("The Worker Updadated.");
+
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("The Operation Could Not Completed.Please Contact Your Consultant.");
+            }
+           
+            #region RefreshListBox
+            List<Worker> Workers = new List<Worker>();
+            Workers = WorkerService.GetWorkers();
+            lstWorker.DataSource = Workers;
+            lstWorker.DisplayMember = "Email";
+            lstWorker.ValueMember = "WorkerID";
+            #endregion
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             Worker Deleted = new Worker();
             Deleted = lstWorker.SelectedItem as Worker;
-            WorkerService.DeleteWorker(Deleted);
+            Deleted.isActive = "I";
+
+            try
+            {
+                WorkerService.UpdateWorker(Deleted);
+                MessageBox.Show("The Worker Updadated.");
+
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("The Operation Could Not Completed.Please Contact Your Consultant.");
+            }
+            #region RefreshListBox
+            List<Worker> Workers = new List<Worker>();
+            Workers = WorkerService.GetWorkers();
+            lstWorker.DataSource = Workers;
+            lstWorker.DisplayMember = "Email";
+            lstWorker.ValueMember = "WorkerID";
+            #endregion
         }
     }
 }

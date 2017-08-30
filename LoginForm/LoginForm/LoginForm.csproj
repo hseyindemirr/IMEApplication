@@ -54,6 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerManager\AdressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerManager\AdressForm.Designer.cs">
+      <DependentUpon>AdressForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSet\AuthorizationValue.cs">
       <DependentUpon>IME.tt</DependentUpon>
     </Compile>
@@ -123,6 +129,7 @@
     <Compile Include="Quotation\Quotation.Designer.cs">
       <DependentUpon>Quotation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\AddresService.cs" />
     <Compile Include="Services\AuthorizationService.cs" />
     <Compile Include="Services\WorkerService.cs" />
     <Compile Include="WorkerManager\AddIMEWorker.cs">
@@ -137,6 +144,9 @@
     <Compile Include="WorkerManager\AuthorizationManagement.Designer.cs">
       <DependentUpon>AuthorizationManagement.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CustomerManager\AdressForm.resx">
+      <DependentUpon>AdressForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
