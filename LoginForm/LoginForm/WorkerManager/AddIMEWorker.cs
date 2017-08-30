@@ -110,5 +110,43 @@ namespace LoginForm.WorkerManager
             txtPhone.Text = DisplayWorker.Phone;
             #endregion
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AuthorizationManagement management = new AuthorizationManagement();
+            management.Show();
+        }
+
+        private void lstWorker_Enter(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void lstWorker_Leave(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void lstWorker_MouseEnter(object sender, EventArgs e)
+        {
+            btnSaveWorker.Visible = false;
+        }
+
+        private void lstWorker_MouseLeave(object sender, EventArgs e)
+        {
+            btnSaveWorker.Visible = true;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            Worker Deleted = new Worker();
+            Deleted = lstWorker.SelectedItem as Worker;
+            WorkerService.DeleteWorker(Deleted);
+        }
     }
 }
